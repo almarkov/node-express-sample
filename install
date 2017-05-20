@@ -1,4 +1,6 @@
 #!/bin/sh
 
+npm install -g supevisor
+
 npm install
 mkdir log
