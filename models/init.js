@@ -1,17 +1,16 @@
 var options = {
-};
+}
 
-var pgp = require('pg-promise')(options);
+var pgp = require('pg-promise')(options)
 var cn = {
     host: 'localhost', 
     port: 5432,
     database: 'sample',
     user: 'sample',
     password: 'sample_password'
-};
+}
 
-var db = pgp(cn);
-
+var db = pgp(cn)
 
 db.query(`CREATE TABLE users (
     id                     SERIAL PRIMARY KEY,

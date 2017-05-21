@@ -1,7 +1,6 @@
 # node-express-sample
 
 todo
-1. postgres
 2. mongodb
 3. jimp
 4. supervisor

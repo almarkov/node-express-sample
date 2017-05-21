@@ -1,29 +1,21 @@
 var options = {
-};
+}
 
-var pgp = require('pg-promise')(options);
+var pgp = require('pg-promise')(options)
 var cn = {
     host: 'localhost', 
     port: 5432,
-    database: 'pi',
-    user: 'pi',
-    password: 'raspberry'
-};
+    database: 'sample',
+    user: 'sample',
+    password: 'sample_password'
+}
 
-var db = pgp(cn);
-
+var db = pgp(cn)
 
 db.query('DROP TABLE IF EXISTS users')
 .then(() => {
-    db.query('DROP TABLE IF EXISTS events')
-    .then(() => {
-        db.query('DROP TABLE IF EXISTS event_types')
-        .then(() => {
-            db.query('DROP TABLE IF EXISTS batches')
-            .then(() => {
-                console.log('done, press Ctrl-C')
-            });
-        });
-    })
-});
+
+    console.log('done, press Ctrl-C')
+
+})
 
