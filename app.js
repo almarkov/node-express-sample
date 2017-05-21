@@ -8,8 +8,9 @@ var FileStreamRotator = require('file-stream-rotator')
 
 var fs = require('fs')
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+var index = require('./routes/index')
+var api   = require('./routes/api')
+var users = require('./routes/users')
 
 var app = express();
 var server    = require('http').Server(app);
@@ -18,10 +19,10 @@ var expressWs = require('express-ws')(app, server);
 var logDirectory = path.join(__dirname, 'log')
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
 var accessLogStream = FileStreamRotator.getStream({
-  date_format: 'YYYYMMDD',
-  filename: path.join(logDirectory, 'access-%DATE%.log'),
-  frequency: 'daily',
-  verbose: false
+    date_format: 'YYYYMMDD',
+    filename: path.join(logDirectory, 'access-%DATE%.log'),
+    frequency: 'daily',
+    verbose: false
 })
 app.use(logger('combined', {stream: accessLogStream}))
 
@@ -37,14 +38,26 @@ app.use(bodyParser.urlencoded({ extended: false }/* {limit: '50mb', extended: tr
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var psql = require('./psql.js').init()
+app.use(function(req,res,next){
+    req.db = psql
+    next()
+})
+
 app.use('/', index);
 app.use('/users', users);
 
+// апи для статистики
+app.use('/api', api)
+
+var api_users = require('./routes/api/users')
+api.use('/users', api_users)
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
