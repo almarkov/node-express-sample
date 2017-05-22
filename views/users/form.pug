@@ -1,0 +1,22 @@
+extends ../../views/layout
+
+block append scripts
+    script(type='text/javascript', src='/javascripts/users.form.js')
+
+block content
+    h2= title
+    input#inp_id(type='hidden', name='id', value= id)
+
+    label(for='inp_login')= 'Логин:'
+    input#inp_login(type='text', name='login', placeholder='[Введите логин]')
+    br
+
+    label(for='inp_last_name')= 'Фамилия:'
+    input#inp_last_name(type='text', name='last_name', placeholder='[Введите фамилию]')
+    br
+
+    label(for='inp_first_name')= 'Имя:'
+    input#inp_first_name(type='text', name='first_name', placeholder='[Введите имя]')
+    br
+
+    a.save(href='')= 'Сохранить'
