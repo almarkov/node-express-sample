@@ -1,6 +1,6 @@
 #!/bin/sh
 
-npm install -g supevisor
+npm install -g supervisor
 
 npm install
 mkdir log
