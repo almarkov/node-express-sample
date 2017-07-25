@@ -42,7 +42,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 
 var psql = require('./psql.js').init()
+var sql  = require('./sql.js')
+
 app.use(function(req,res,next){
+    req.sql = sql
     req.db = psql
     next()
 })
