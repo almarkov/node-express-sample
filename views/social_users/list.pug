@@ -1,0 +1,15 @@
+extends ../../views/layout
+
+block append scripts
+    script(type='text/javascript', src='/javascripts/social_users.list.js')
+
+block content
+    h2= 'Users'
+    a(href='/social_users/create')= 'Создать'
+    table#users
+        thead
+            tr
+                th= 'Login'
+                th= 'Last Name'
+                th= 'First Name'
+        tbody

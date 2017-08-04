@@ -1,6 +1,8 @@
 var express = require('express')
 var router = express.Router()
 
+var log    = require('../../log.js')
+
 router.get('/', function(req, res, next) {
 
     req.db.any( req.sql.users.all )
