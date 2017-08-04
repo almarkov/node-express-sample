@@ -1,9 +1,8 @@
 # node-express-sample
 
 todo
-1. mongodb
-2. jimp
-3. implement http://expressjs.com/en/advanced/best-practice-performance.html
-4. run as service with systemd
-5. run with many workers
-6. implement redis
+1. jimp
+2. implement http://expressjs.com/en/advanced/best-practice-performance.html
+3. run as service with systemd
+4. run with many workers
+5. implement redis
