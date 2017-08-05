@@ -31,6 +31,25 @@ router.post('/create', function(req, res, next) {
 
 })
 
+router.post('/photo', (req, res, next) => {
+
+    if (!req.files) {
+        res.json({ error: 1 })
+        return
+    }
+
+    var photo = req.files.photo
+    var path  = '/images/' + photo.name
+    photo.mv(__dirname + '/../../public' + path, function(err) {
+        if (err) {
+            res.status(500).send(err)
+        }
+        else {
+            res.json({ success: 1, path: path })
+        }
+    })
+})
+
 router.post('/:id', function(req, res, next) {
 
     req.mongodb.get('social_users').findOneAndUpdate({'_id': req.params.id }, {$set: req.body}, {}, (err, social_user) => {
@@ -74,6 +93,8 @@ router.post('/:id/delete', function(req, res, next) {
     })
 
 })
+
+
 
 
 module.exports = router

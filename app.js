@@ -8,6 +8,7 @@ var bodyParser        = require('body-parser')
 var FileStreamRotator = require('file-stream-rotator')
 var fs                = require('fs')
 var monk              = require('monk')
+var fileUpload        = require('express-fileupload')
 
 var index        = require('./routes/index')
 var api          = require('./routes/api')
@@ -45,6 +46,7 @@ app.use(bodyParser.json(/* {limit: '50mb'} */))
 app.use(bodyParser.urlencoded({ extended: false }/* {limit: '50mb', extended: true}*/))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(fileUpload())
 
 
 var psql    = require('./psql.js').init()

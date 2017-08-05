@@ -49,3 +49,23 @@ $(document).ready(function(){
         $('#inp_first_name').val(data.first_name)
     })
 })
+
+$(document).on('change', '#inp_photo', function() {
+
+    var data = new FormData();
+    data.append( 'photo', $('#inp_photo')[0].files[0] )
+
+    $.ajax({
+        url: '/api/social_users/photo',
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        success: function(data){
+            if ( data.success ) {
+                $( '#uploaded_photo').attr('src', data.path )
+            }
+        }
+    });
+})
