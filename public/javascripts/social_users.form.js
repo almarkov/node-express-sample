@@ -65,6 +65,7 @@ $(document).on('change', '#inp_photo', function() {
         success: function(data){
             if ( data.success ) {
                 $( '#uploaded_photo').attr('src', data.path )
+                $( "#draggable3" ).draggable({ containment: "#drag_target", scroll: false })
             }
         }
     });
