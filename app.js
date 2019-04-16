@@ -3,7 +3,7 @@ var path              = require('path')
 var favicon           = require('serve-favicon')
 var logger            = require('morgan')
 var session           = require('express-session')
-  , pgSession         = require('connect-pg-simple')(session)
+    , pgSession         = require('connect-pg-simple')(session)
 var cookieParser      = require('cookie-parser')
 var bodyParser        = require('body-parser')
 var FileStreamRotator = require('file-stream-rotator')
@@ -23,7 +23,7 @@ var server    = require('http').Server(app)
 var expressWs = require('express-ws')(app, server)
 
 // TODO: log для мультипроцессной версии
-var log = require("./log.js")
+var log = require('./log.js')
 log.reset()
 
 
@@ -73,7 +73,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
-}));
+}))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(fileUpload())
 
