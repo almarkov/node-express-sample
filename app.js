@@ -3,12 +3,14 @@ var path              = require('path')
 var favicon           = require('serve-favicon')
 var logger            = require('morgan')
 var session           = require('express-session')
+  , pgSession         = require('connect-pg-simple')(session)
 var cookieParser      = require('cookie-parser')
 var bodyParser        = require('body-parser')
 var FileStreamRotator = require('file-stream-rotator')
 var fs                = require('fs')
 var monk              = require('monk')
 var fileUpload        = require('express-fileupload')
+var Pool              = require('pg-pool')
 
 var index        = require('./routes/index')
 var api          = require('./routes/api')
@@ -40,18 +42,43 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
 
+var pool = new Pool({
+    database: 'sample',
+    user: 'sample',
+    password: 'sample_password',
+    port: 5432,
+    // ssl: true,
+    max: 20, // set pool max size to 20
+    min: 4, // set min pool size to 4
+    idleTimeoutMillis: 1000, // close idle clients after 1 second
+    connectionTimeoutMillis: 1000, // return an error after 1 second if connection could not be established
+})
+
+var psql    = require('./psql.js').init()
+var sql     = require('./sql.js')
+var mongodb = monk('localhost:27017/sample')
+
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 // app.use(logger('dev'))
 app.use(bodyParser.json(/* {limit: '50mb'} */))
 app.use(bodyParser.urlencoded({ extended: false }/* {limit: '50mb', extended: true}*/))
 app.use(cookieParser())
+app.use(session({
+    store: new pgSession({
+        // pool : pgPool,                // Connection pool
+        pgPromise: psql.db,
+        tableName : 'user_sessions'   // Use another table-name than the default "session" one
+    }),
+    secret: process.env.FOO_COOKIE_SECRET || 'puzdosia',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
+}));
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(fileUpload())
 
 
-var psql    = require('./psql.js').init()
-var sql     = require('./sql.js')
-var mongodb = monk('localhost:27017/sample')
+
 
 app.use(function(req,res,next){
     req.sql     = sql
@@ -60,6 +87,22 @@ app.use(function(req,res,next){
     next()
 })
 
+// auth
+app.use(function(req,res,next){
+
+    if ( req.url === '/auth/login' || req.url === '/login') {
+        next()
+        return
+    }
+
+    if ( req.session.user ) {
+        // req.session.touch()
+        next()
+    } else {
+        res.redirect('/login')
+    }
+
+})
 
 app.use('/', index)
 app.use('/users', users)
