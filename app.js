@@ -14,6 +14,7 @@ var Pool              = require('pg-pool')
 
 var index        = require('./routes/index')
 var api          = require('./routes/api')
+var auth         = require('./routes/auth')
 var users        = require('./routes/users')
 var social_users = require('./routes/social_users')
 
@@ -64,11 +65,11 @@ app.use(bodyParser.json(/* {limit: '50mb'} */))
 app.use(bodyParser.urlencoded({ extended: false }/* {limit: '50mb', extended: true}*/))
 app.use(cookieParser())
 app.use(session({
-    store: new pgSession({
-        // pool : pgPool,                // Connection pool
-        pgPromise: psql.db,
-        tableName : 'user_sessions'   // Use another table-name than the default "session" one
-    }),
+    // store: new pgSession({
+    //     // pool : pgPool,                // Connection pool
+    //     pgPromise: psql.db,
+    //     tableName : 'user_sessions'   // Use another table-name than the default "session" one
+    // }),
     secret: process.env.FOO_COOKIE_SECRET || 'puzdosia',
     resave: false,
     saveUninitialized: true,
@@ -115,6 +116,7 @@ api.use('/users', api_users)
 var api_social_users = require('./routes/api/social_users')
 api.use('/social_users', api_social_users)
 
+app.use('/auth', auth)
 
 app.use(function(req, res, next) {
     var err = new Error('Not Found')

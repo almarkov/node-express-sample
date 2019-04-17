@@ -17,6 +17,7 @@
     "express-session": "^1.16.1",
     "express-ws": "^4.0.0",
     "file-stream-rotator": "^0.4.1",
+    "md5": "^2.2.1",
     "monk": "^6.0.6",
     "morgan": "~1.9.1",
     "pg-pool": "^2.0.6",

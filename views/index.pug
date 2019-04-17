@@ -1,5 +1,17 @@
-extends layout
+extends ./layout.pug
+
+block append scripts
+    script(type='text/javascript', src='/javascripts/index.js')
 
 block content
-    h1= title
-    p Welcome to #{title}
+
+    #dialog-login-form( title= 'Sign In', style="display:none;" )
+        form
+            fieldset
+                label( for= 'login' ) Username
+                input#login.text.ui-widget-content.ui-corner-all( type= 'text', name='login' )
+                label( for= 'password' ) Password
+                input#password.text.ui-widget-content.ui-corner-all( type= 'text', name='password' )
+
+                input( type='submit', tabindex='-1' style='position:absolute; top:-1000px')
+
