@@ -1,7 +1,7 @@
 function populateUsersTable() {
-    var html = ''
-    $.getJSON( '/api/users', function( data ) {
-        data.map((datum) =>{
+    $.getJSON( '/api/users', data => {
+        let html = ''
+        data.map( datum =>{
             html += `
             <tr>
                 <td>${datum.login}</td>
@@ -12,14 +12,15 @@ function populateUsersTable() {
             </tr>
             `
         })
-        $('#users tbody').append(html)
+        $('#users tbody').append( html )
     })
 }
 
 $(document).on('click', '.remove', function(){
+
     var id = $(this).data('id')
-    $.post(`/api/users/${id}/delete`, {
-    })
+
+    $.post(`/api/users/${id}/delete`, {})
     .done(function(data) {
         if (data.success) {
             populateUsersTable()
@@ -32,8 +33,9 @@ $(document).on('click', '.remove', function(){
     })
     .always(function() {
     })
+
 })
 
-$(document).ready(function() {
+$(document).ready( () => {
     populateUsersTable()
 })
