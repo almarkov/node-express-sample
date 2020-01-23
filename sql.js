@@ -13,6 +13,7 @@ module.exports = {
         create:      sql('sql/users/create.sql'),
         update:      sql('sql/users/update.sql'),
         find:        sql('sql/users/find.sql'),
+        find_by_login: sql('sql/users/find_by_login.sql'),
         delete:      sql('sql/users/delete.sql'),
     },
 

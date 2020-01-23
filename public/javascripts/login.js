@@ -60,7 +60,7 @@ $( function() {
             }).done(function( response ) {
 
                 if (response.msg === '') {
-                    window.location = "/";
+                    window.location = "/cms";
                 }
                 else {
                     login.addClass( 'ui-state-error' )

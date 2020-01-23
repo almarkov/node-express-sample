@@ -14,6 +14,7 @@ var Pool              = require('pg-pool')
 
 var index        = require('./routes/index')
 var api          = require('./routes/api')
+var cms          = require('./routes/cms')
 var auth         = require('./routes/auth')
 var users        = require('./routes/users')
 var social_users = require('./routes/social_users')
@@ -88,8 +89,15 @@ app.use(function(req,res,next){
     next()
 })
 
+
+
+app.use('/', index)
+app.use('/users', users)
+app.use('/social_users', social_users)
+
+
 // auth
-app.use(function(req,res,next){
+app.all('/cms',function(req,res,next){
 
     if ( req.url === '/auth/login' || req.url === '/login') {
         next()
@@ -105,10 +113,7 @@ app.use(function(req,res,next){
 
 })
 
-app.use('/', index)
-app.use('/users', users)
-app.use('/social_users', social_users)
-
+app.use('/cms', cms)
 
 app.use('/api', api)
 var api_users = require('./routes/api/users')

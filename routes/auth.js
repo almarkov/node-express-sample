@@ -6,38 +6,22 @@ const crypto = require('crypto')
 
 router.post('/login', function(req, res) {
 
-    var login    = req.body.login
-    var password = req.body.password
+    let login    = req.body.login
+    let password = req.body.password
 
-    // var db = req.db;
-    // var users = db.get('users').find({}, {}, function(err, users) {
-    //     if (err === null) {
+    let db = req.db;
+    let sql = req.sql
 
-    //         var user = users.find( user => {
-    //             return user.login == login
-    //         })
-
-    //         if ( user && ( user.pass_hash == md5( password ) ) ) {
-    //             req.session.user = user
-    //             res.json({ msg: ''})
-    //             return;
-    //         }
-
-    //         res.json({ msg: 'Wrong login/password' })
-    //     }
-    // })
-
-    if ( login != 'admin' && login != 'user' ) {
+    db.oneOrNone(sql.users.find_by_login, {login:login})
+    .then(user => {
+        if ( user && ( user.password == md5( password ) ) ) {
+            req.session.user = user
+            res.send({ msg: '' })
+            return;
+        }
         res.send({ msg: 'Wrong login/password' })
-        return
-    }
-
-    req.session.user = {
-        login: req.body.login,
-        role: login,
-    }
-    res.send({ msg: '' })
-
+    });
+    
 });
 
 
