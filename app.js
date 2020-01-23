@@ -19,7 +19,8 @@ var auth         = require('./routes/auth')
 var users        = require('./routes/users')
 var social_users = require('./routes/social_users')
 
-
+const md5    = require('md5')
+console.log(md5('test'))
 var app       = express()
 var server    = require('http').Server(app)
 var expressWs = require('express-ws')(app, server)
