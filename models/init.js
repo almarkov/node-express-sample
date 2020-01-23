@@ -23,8 +23,8 @@ db.query(`CREATE TABLE users (
 .then(() => {
 
     db.query(`INSERT INTO users (login, last_name, first_name, password, status)
-            VALUES ('test', 'test', 'test', '098f6bcd4621d373cade4e832627b4f6', 1 )
-    )`)
+            VALUES ('test', 'test', 'test', '098f6bcd4621d373cade4e832627b4f6', 1)
+    `)
     .then(() => {
 
         console.log('done, press Ctrl-C')
