@@ -23,6 +23,9 @@
     "pg-pool": "^2.0.7",
     "pg-promise": "^9.3.3",
     "pug": "~2.0.4",
-    "serve-favicon": "~2.5.0"
+    "serve-favicon": "~2.5.0",
+    "kind-of": ">=6.0.3",
+    "acorn": ">=7.1.1",
+    "minimist": ">=0.2.1"
   }
 }
