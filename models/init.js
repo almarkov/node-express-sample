@@ -12,7 +12,7 @@ var cn = {
 
 var db = pgp(cn)
 
-db.query(`CREATE TABLE users (
+db.query(`CREATE TABLE IF NOT EXISTS users (
     id                     SERIAL PRIMARY KEY,
     login                  VARCHAR(1024) NOT NULL,
     last_name              TEXT,
@@ -22,14 +22,24 @@ db.query(`CREATE TABLE users (
 )`)
 .then(() => {
 
-    db.query(`INSERT INTO users (login, last_name, first_name, password, status)
-            VALUES ('test', 'test', 'test', '098f6bcd4621d373cade4e832627b4f6', 1)
-    `)
-    .then(() => {
+db.query(`INSERT INTO users (id, login, last_name, first_name, password, status)
+        VALUES (1, 'test', 'test', 'test', '098f6bcd4621d373cade4e832627b4f6', 1)
+        ON CONFLICT DO NOTHING
+`)
+.then(() => {
 
-        console.log('done, press Ctrl-C')
+db.query(`CREATE TABLE IF NOT EXISTS  articles (
+    id                     SERIAL PRIMARY KEY,
+    title                  TEXT,
+    text                   TEXT,
+    author_id              BIGINT REFERENCES users(id),
+    created_at             TIMESTAMP NOT NULL DEFAULT NOW(),
+    modified_at            TIMESTAMP NOT NULL DEFAULT NOW()
+)`)
+.then(() => {
 
-    })
+    console.log('done, press Ctrl-C')
 
-
+})
+})
 })

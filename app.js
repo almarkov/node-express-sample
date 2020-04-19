@@ -15,11 +15,16 @@ var Pool              = require('pg-pool')
 const helmet          = require('helmet')
 
 var index        = require('./routes/index')
+
 var api          = require('./routes/api')
+
 var cms          = require('./routes/cms')
+
 var auth         = require('./routes/auth')
+
 var users        = require('./routes/users')
 var social_users = require('./routes/social_users')
+var articles     = require('./routes/articles')
 
 var app       = express()
 var server    = require('http').Server(app)
@@ -116,12 +121,16 @@ app.all('/cms',function(req,res,next){
 })
 
 app.use('/cms', cms)
+var cms_articles = require('./routes/cms/articles')
+cms.use('/articles', cms_articles)
 
 app.use('/api', api)
 var api_users = require('./routes/api/users')
 api.use('/users', api_users)
 var api_social_users = require('./routes/api/social_users')
 api.use('/social_users', api_social_users)
+var articles = require('./routes/api/articles')
+api.use('/articles', articles)
 
 app.use('/auth', auth)
 

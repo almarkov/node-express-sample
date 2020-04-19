@@ -1,0 +1,18 @@
+extends ../../../views/layout
+
+block append scripts
+    script(type='text/javascript', src='/javascripts/social_users.form.js')
+
+block content
+    h2= title
+    input#inp_id(type='hidden', name='id', value= id)
+
+    label(for='inp_login')= 'Заголовок:'
+    input#inp_title(type='text', name='title', placeholder='[Введите заголовок]')
+    br
+
+    label(for='inp_last_name')= 'Текст:'
+    textarea#inp_text(name='text', placeholder='[Введите текст]')
+    br
+
+    a.save(href='')= 'Сохранить'

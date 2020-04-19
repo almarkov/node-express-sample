@@ -1,0 +1,15 @@
+extends ../../../views/layout
+
+block append scripts
+    script(type='text/javascript', src='/javascripts/articles.list.js')
+
+block content
+    h2= 'Users'
+    a(href='/cms/articles/create')= 'Создать статью'
+    table#users
+        thead
+            tr
+                th= 'Login'
+                th= 'Last Name'
+                th= 'First Name'
+        tbody
