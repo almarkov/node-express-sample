@@ -12,6 +12,8 @@ var monk              = require('monk')
 var fileUpload        = require('express-fileupload')
 var Pool              = require('pg-pool')
 
+const helmet          = require('helmet')
+
 var index        = require('./routes/index')
 var api          = require('./routes/api')
 var cms          = require('./routes/cms')
@@ -59,6 +61,7 @@ var psql    = require('./psql.js').init()
 var sql     = require('./sql.js')
 var mongodb = monk('localhost:27017/sample')
 
+app.use(helmet())
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 // app.use(logger('dev'))
 app.use(bodyParser.json(/* {limit: '50mb'} */))

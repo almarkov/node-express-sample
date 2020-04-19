@@ -7,6 +7,7 @@
     "supervisor": "supervisor ./bin/www"
   },
   "dependencies": {
+    "acorn": ">=7.1.1",
     "body-parser": "~1.19.0",
     "connect-pg-simple": "^6.0.1",
     "cookie-parser": "~1.4.4",
@@ -17,15 +18,15 @@
     "express-session": "^1.16.2",
     "express-ws": "^4.0.0",
     "file-stream-rotator": "^0.5.5",
+    "helmet": "^3.22.0",
+    "kind-of": ">=6.0.3",
     "md5": "^2.2.1",
+    "minimist": ">=0.2.1",
     "monk": "^7.1.0",
     "morgan": "~1.9.1",
     "pg-pool": "^2.0.7",
     "pg-promise": "^9.3.3",
     "pug": "~2.0.4",
-    "serve-favicon": "~2.5.0",
-    "kind-of": ">=6.0.3",
-    "acorn": ">=7.1.1",
-    "minimist": ">=0.2.1"
+    "serve-favicon": "~2.5.0"
   }
 }
