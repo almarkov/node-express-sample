@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "acorn": ">=7.1.1",
-    "body-parser": "~1.19.0",
+    "body-parser": "~1.19.2",
     "connect-pg-simple": "^6.0.1",
     "cookie-parser": "~1.4.4",
     "debug": "~4.1.1",
